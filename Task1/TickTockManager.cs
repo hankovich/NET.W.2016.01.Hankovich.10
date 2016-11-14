@@ -20,12 +20,12 @@ namespace Task1
     public class TickTock
     {
         /// <summary>
-        /// 
+        /// Event that raises when time, setted in timer is out.
         /// </summary>
         public event EventHandler<TickTockEventsArgs> RockAroundTheClock = delegate { };
 
         /// <summary>
-        /// 
+        /// Method raises <see cref="RockAroundTheClock"/> event
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -35,9 +35,10 @@ namespace Task1
         }
 
         /// <summary>
-        /// 
+        /// Sets timeout for event.
+        /// <exception cref="ArgumentException">Throws when milliseconds is negative</exception>
+        /// <param name="milliseconds">Time in ms to set</param>
         /// </summary>
-        /// <param name="milliseconds"></param>
         public void SetTheFinalCountDown(int milliseconds)
         {
             if (milliseconds < 0)

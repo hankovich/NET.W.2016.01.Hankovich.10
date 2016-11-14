@@ -8,7 +8,8 @@ namespace Task1.UI
 {
     class Program
     {
-        static string menu = "\n\n1. Set timer and wait.\n2. Subscribe TooLate.\n3. Unsubscribe TooLate.\n4. Subscribe Stepan.\n5. Unsubscribe Stepan.\n6. Exit.\n\n";
+        static string menu = "\n\n1. Set timer and wait.\n2. Subscribe TooLate.\n3. Unsubscribe TooLate.\n" +
+                             "4. Subscribe Stepan.\n5. Unsubscribe Stepan.\n6. Exit.\n\n";
         static void Main(string[] args)
         {
             TickTock time = new TickTock();

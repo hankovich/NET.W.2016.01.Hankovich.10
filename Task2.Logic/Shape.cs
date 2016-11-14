@@ -13,7 +13,7 @@ namespace Task2.Logic
 
         static Shape()
         {
-            string eps = ConfigurationManager.AppSettings["shapeEpsilon"];
+            string eps = ConfigurationManager.AppSettings["Epsilon"];
             double result;
             if (double.TryParse(eps, out result))
             {

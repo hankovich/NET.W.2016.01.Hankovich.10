@@ -14,7 +14,7 @@ namespace Task2.Logic.Tests
         [Test]
         public void EpsAccuracy(double a, double b, double c)
         {
-            var triangle = new Triangle(b, c, a);
+            var triangle = new Triangle(a, b, c);
             Assert.LessOrEqual(Math.Abs(a - triangle.A), Shape.Eps);
         }
 
@@ -24,14 +24,14 @@ namespace Task2.Logic.Tests
         [Test]
         public void ExceptionExpected(double a, double b, double c, Type exceptionType)
         {
-            Assert.Throws(exceptionType, () => new Triangle(b, c, a));
+            Assert.Throws(exceptionType, () => new Triangle(a, b, c));
         }
 
         [TestCase(Math.E, Math.E, Math.E, Math.E*3)]
         [Test]
         public void Perimeter(double a, double b, double c, double expectedPerimeter)
         {
-            Triangle triangle = new Triangle(b, c, a);
+            Triangle triangle = new Triangle(a, b, c);
             Assert.LessOrEqual(Math.Abs(expectedPerimeter - triangle.Perimeter), Shape.Eps);
         }
 
@@ -40,7 +40,7 @@ namespace Task2.Logic.Tests
         [Test]
         public void Area(double a, double b, double c, double expectedArea)
         {
-            Triangle triangle = new Triangle(b, c, a);
+            Triangle triangle = new Triangle(a, b, c);
             Assert.LessOrEqual(Math.Abs(expectedArea - triangle.Area), Shape.Eps);
         }
     }
@@ -58,7 +58,7 @@ namespace Task2.Logic.Tests
         }
 
         [TestCase(-1, typeof (ArgumentOutOfRangeException))]
-        [TestCase(double.Epsilon/2.0, ExpectedResult = typeof (ArgumentOutOfRangeException))]
+        [TestCase(0,  typeof (ArgumentOutOfRangeException))]
         [Test]
         public void ExceptionExpected(double radius, Type exceptionType)
         {
@@ -137,11 +137,11 @@ namespace Task2.Logic.Tests
             Assert.Throws(exceptionType, () => new Square(a));
         }
 
-        [TestCase(Math.E, Math.PI, Math.E * 4)]
+        [TestCase(Math.E, Math.E * 4)]
         [Test]
-        public void Perimeter(double a, double b, double expectedPerimeter)
+        public void Perimeter(double a, double expectedPerimeter)
         {
-            Rectangle square = new Square(a);
+            Square square = new Square(a);
             Assert.LessOrEqual(Math.Abs(expectedPerimeter - square.Perimeter), Shape.Eps);
         }
 
@@ -150,7 +150,7 @@ namespace Task2.Logic.Tests
         [Test]
         public void Area(double a, double expectedArea)
         {
-            Rectangle square = new Square(a);
+            Square square = new Square(a);
             Assert.LessOrEqual(Math.Abs(expectedArea - square.Area), Shape.Eps);
         }
     }

@@ -20,7 +20,7 @@ namespace Task2.Logic
             double result;
             if (double.TryParse(eps, out result))
             {
-                if (Eps <= 0 || Eps >= 1)
+                if (result <= 0 || result >= 1)
                     throw new ConfigurationErrorsException($"Check the value of {nameof(eps)}, something gone wrong");
                 Eps = result;
             }
@@ -31,7 +31,7 @@ namespace Task2.Logic
         }
 
         public abstract double Perimeter { get; }
-        public abstract double Area { get;}
+        public abstract double Area { get; }
     }
 
     public class Circle : Shape
@@ -41,7 +41,7 @@ namespace Task2.Logic
         /// <summary>
         /// Radius of a circle
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Value is less than Eps</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Throws when value is less than Eps</exception>
         public double Radius
         {
             get { return radius; }
@@ -89,7 +89,15 @@ namespace Task2.Logic
         /// </summary>
         public double C { get; }
 
-        public Triangle(double y, double z, double x)
+        /// <summary>
+        /// Ctor with parameters
+        /// </summary>
+        /// <param name="x">First side</param>
+        /// <param name="y">Second side</param>
+        /// <param name="z">Third side</param>
+        /// <exception cref="ArgumentException">When the triangle inequality is not satisfied.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When at least one of the triangle's sides is less than Eps</exception>
+        public Triangle(double x, double y, double z)
         {
             if (x < Eps)
                 throw new ArgumentOutOfRangeException($"Check {nameof(x)}. It must be greater than {Eps}.");
@@ -98,7 +106,7 @@ namespace Task2.Logic
             if (z < Eps)
                 throw new ArgumentOutOfRangeException($"Check {nameof(z)}. It must be greater than {Eps}.");
 
-            if (!isValid(x, y, z))
+            if (!IsValid(x, y, z))
                 throw new ArgumentException(
                     $"Check {nameof(x)}, {nameof(y)} and {nameof(z)}. Don't forget the triangle inequality.");
             
@@ -117,11 +125,9 @@ namespace Task2.Logic
         /// </summary>
         public override double Area => Math.Sqrt(Perimeter*(Perimeter - 2*A)*(Perimeter - 2*B)*(Perimeter - 2*C))/4.0;
 
-        private bool isValid(double a, double b, double c)
+        private static bool IsValid(double a, double b, double c)
         {
-            if (a + b - c > Eps && a + c - b > Eps && b + c - a > Eps)
-                return true;
-            return false;
+            return (a + b - c > Eps) && (a + c - b > Eps) && (b + c - a > Eps);
         }
     }
 
@@ -135,7 +141,7 @@ namespace Task2.Logic
         /// Length of first rectangle side
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Value is less than Eps</exception>
-        public double A
+        public virtual double A
         {
             get { return a; }
             set
@@ -153,7 +159,7 @@ namespace Task2.Logic
         /// Length of second rectangle side
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Value is less than Eps</exception>
-        public double B
+        public virtual double B
         {
             get { return b; }
             set
@@ -172,6 +178,7 @@ namespace Task2.Logic
             A = x;
             B = y;
         }
+
         /// <summary>
         /// Perimeter of a rectangle
         /// </summary>
@@ -183,8 +190,10 @@ namespace Task2.Logic
         public override double Area => A*B;
     }
 
-    public class Square : Rectangle //It's not perfect, but I hope that it's better than inheritance from a shape. Maybe Polygon will solve this problem
+    public class Square : Shape
     {
+        private double a;
+
         /// <summary>
         /// Length of square side 
         /// </summary>
@@ -197,7 +206,6 @@ namespace Task2.Logic
                 if (value >= Eps)
                 {
                     a = value;
-                    b = value;
                 }
                 else
                 {
@@ -206,9 +214,10 @@ namespace Task2.Logic
             }
         }
 
-        protected double B;
-
-        public Square(double x) : base(x, x) {}
+        public Square(double x)
+        {
+            A = x;
+        }
 
         /// <summary>
         /// Perimeter of a square

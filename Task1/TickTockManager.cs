@@ -14,6 +14,9 @@ namespace Task1
             LastWaitingTime = milliseconds;
         }
 
+        /// <summary>
+        /// Get last waiting time in milliseconds
+        /// </summary>
         public int LastWaitingTime { get; private set; }
     }
 

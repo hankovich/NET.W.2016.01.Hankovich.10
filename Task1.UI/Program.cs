@@ -10,7 +10,7 @@ namespace Task1.UI
     {
         static string menu = "\n\n1. Set timer and wait.\n2. Subscribe TooLate.\n3. Unsubscribe TooLate.\n" +
                              "4. Subscribe Stepan.\n5. Unsubscribe Stepan.\n6. Exit.\n\n";
-        static void Main(string[] args)
+        static void Main()
         {
             TickTock time = new TickTock();
             TooLate die = null;
